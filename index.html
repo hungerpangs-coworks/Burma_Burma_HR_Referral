@@ -240,16 +240,6 @@
                   />
                   <small class="text-muted">Attach the candidate's latest CV.</small>
                 </div>
-
-                <div class="col-md-12">
-                  <label for="remarks" class="form-label">Remarks (optional)</label>
-                  <textarea
-                    id="remarks"
-                    class="form-control"
-                    rows="3"
-                    placeholder="Share anything helpful about the person you’re referring."
-                  ></textarea>
-                </div>
               </div>
 
               <!-- ACTIONS -->
@@ -406,7 +396,6 @@
         const outletName   = outletSelect.value.trim();
         const referringDept = deptSelect.value.trim();      // candidate dept
         const referringDesig = desigSelect.value.trim();    // candidate role
-        const remarks      = document.getElementById('remarks').value.trim();
         const cvFile       = document.getElementById('cvFile').files[0] || null;
 
         if (!employeeId || !employeeName || !outletName || !referringDept || !referringDesig) {
@@ -429,7 +418,6 @@
           outletName,
           referringDept,
           referringDesignation: referringDesig,
-          remarks,
           cv: cvPayload
         };
 
@@ -453,7 +441,6 @@
         outletSelect.value = '';
         deptSelect.value = '';
         updateDesignationOptionsForDept('');
-        document.getElementById('remarks').value = '';
         document.getElementById('cvFile').value = '';
 
         setStatus('', 'success');
