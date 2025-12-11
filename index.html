@@ -23,7 +23,7 @@
   <meta property="og:image"
         content="https://hungerpangs-coworks.github.io/Burma_Burma_HR_Referral/BB_Logo_favicon.png" />
 
-  <!-- Twitter Card (optional but nice) -->
+  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Burma Burma | Employee Referral Portal" />
   <meta name="twitter:description"
@@ -32,113 +32,158 @@
         content="https://hungerpangs-coworks.github.io/Burma_Burma_HR_Referral/BB_Logo_favicon.png" />
 
   <style>
-    /* your existing CSS from before – keep it here unchanged */
+    :root {
+      --bb-primary: #2b5dff;
+      --bb-primary-dark: #2349cc;
+      --bb-bg: #f4f7ff;
+      --bb-border: #d0d7e2;
+      --bb-text-main: #222;
+      --bb-text-muted: #666;
+      --bb-radius-lg: 24px;
+    }
+
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f5f7fb;
+      background: radial-gradient(circle at top, #f0f5ff 0, #f8fbff 45%, #f5f7fb 100%);
       margin: 0;
-      padding: 0;
-      color: #222;
+      padding: 32px 12px 40px;
+      color: var(--bb-text-main);
     }
-    .page {
-      max-width: 900px;
-      margin: 40px auto;
-      background: #fff;
-      border-radius: 12px;
-      padding: 24px 28px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+
+    .shell {
+      max-width: 1024px;
+      margin: 0 auto;
     }
-    h1 {
+
+    .hero {
       text-align: center;
-      margin-top: 0;
-      margin-bottom: 10px;
-      font-size: 26px;
-      letter-spacing: 0.5px;
-    }
-    p.sub {
-      text-align: center;
-      margin-top: 0;
       margin-bottom: 24px;
-      color: #666;
-      font-size: 14px;
     }
+
+    .hero-logo {
+      width: 96px;
+      height: 96px;
+      border-radius: 999px;
+      object-fit: contain;
+      margin-bottom: 8px;
+    }
+
+    .hero-title {
+      margin: 4px 0;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #1550c9;
+    }
+
+    .hero-sub {
+      margin: 0;
+      font-size: 14px;
+      color: var(--bb-text-muted);
+    }
+
+    .page {
+      background: #fff;
+      border-radius: var(--bb-radius-lg);
+      padding: 28px 28px 24px;
+      box-shadow:
+        0 18px 45px rgba(15, 35, 96, 0.18),
+        0 0 0 1px rgba(210, 220, 240, 0.8);
+    }
+
     .section-title {
       font-weight: 600;
-      margin: 18px 0 8px;
-      font-size: 15px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #444;
+      margin: 10px 0 6px;
+      font-size: 13px;
+      text-transform: none;
+      letter-spacing: 0.06em;
+      color: #5b647b;
     }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 16px 18px;
     }
+
     .field {
       display: flex;
       flex-direction: column;
       gap: 4px;
     }
+
     label {
       font-size: 13px;
       font-weight: 500;
       color: #444;
     }
+
     input[type="text"],
     textarea,
     select {
-      border-radius: 8px;
-      border: 1px solid #d0d7e2;
-      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--bb-border);
+      padding: 10px 14px;
       font-size: 14px;
       outline: none;
-      transition: border 0.15s, box-shadow 0.15s;
+      transition: border 0.15s, box-shadow 0.15s, background 0.15s;
+      background: #f9fafc;
     }
-    input[type="file"] {
-      font-size: 13px;
-    }
-    input[type="text"]:focus,
-    textarea:focus,
-    select:focus {
-      border-color: #2b5dff;
-      box-shadow: 0 0 0 2px rgba(43,93,255,0.1);
-    }
+
     textarea {
+      border-radius: 16px;
       min-height: 70px;
       resize: vertical;
     }
+
+    input[type="file"] {
+      font-size: 13px;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--bb-primary);
+      background: #ffffff;
+      box-shadow: 0 0 0 2px rgba(43,93,255,0.12);
+    }
+
     .actions {
       margin-top: 24px;
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       gap: 12px;
       align-items: center;
       flex-wrap: wrap;
     }
+
     button {
       border-radius: 999px;
       border: none;
-      padding: 9px 20px;
+      padding: 10px 26px;
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
-      background: #2b5dff;
+      background: linear-gradient(135deg, #2b5dff, #19c3ff);
       color: #fff;
-      box-shadow: 0 6px 16px rgba(43,93,255,0.35);
-      transition: transform 0.1s, box-shadow 0.1s, background 0.1s;
+      box-shadow: 0 10px 24px rgba(43,93,255,0.45);
+      transition: transform 0.1s, box-shadow 0.1s, filter 0.1s;
     }
+
     button:hover {
-      background: #2349cc;
       transform: translateY(-1px);
-      box-shadow: 0 8px 20px rgba(43,93,255,0.45);
+      box-shadow: 0 14px 30px rgba(43,93,255,0.55);
+      filter: brightness(1.03);
     }
+
     button:disabled {
       opacity: 0.6;
       cursor: default;
       transform: none;
       box-shadow: none;
+      filter: none;
     }
+
     .status {
       font-size: 13px;
       color: #555;
@@ -150,68 +195,95 @@
     .status.success {
       color: #1e8449;
     }
+
     .required {
       color: #c0392b;
       margin-left: 2px;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 20px 10px 28px;
+      }
+      .page {
+        padding: 20px 16px 18px;
+      }
+      .hero-title {
+        font-size: 22px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <div class="page">
-    <h1>Employee Referral</h1>
-    <p class="sub">Submit your referral – HR will take it from here 😉</p>
+  <div class="shell">
+    <header class="hero">
+      <!-- Upload a larger logo as BB_Logo_header.png if you like -->
+      <img src="BB_Logo_favicon.png" alt="Burma Burma" class="hero-logo" />
+      <h1 class="hero-title">Employee Referral</h1>
+      <p class="hero-sub">Refer great talent to the Burma Burma family in just a few clicks.</p>
+    </header>
 
-    <div class="section-title">Referring Employee</div>
-    <div class="grid">
-      <div class="field">
-        <label>Employee ID <span class="required">*</span></label>
-        <input type="text" id="employeeId" placeholder="E.g. BB123" />
+    <div class="page">
+      <!-- Section 1: Your core details -->
+      <div class="section-title">Your details</div>
+      <div class="grid">
+        <div class="field">
+          <label>Employee ID <span class="required">*</span></label>
+          <input type="text" id="employeeId" placeholder="Enter your employee ID" />
+        </div>
+        <div class="field">
+          <label>Employee Name <span class="required">*</span></label>
+          <input type="text" id="employeeName" placeholder="Enter your full name" />
+        </div>
+        <div class="field">
+          <label>Outlet Name <span class="required">*</span></label>
+          <select id="outletName">
+            <option value="">Select outlet</option>
+          </select>
+        </div>
       </div>
-      <div class="field">
-        <label>Employee Name <span class="required">*</span></label>
-        <input type="text" id="employeeName" placeholder="Your full name" />
-      </div>
-      <div class="field">
-        <label>Outlet Name <span class="required">*</span></label>
-        <select id="outletName">
-          <option value="">Select outlet</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Referring Department <span class="required">*</span></label>
-        <select id="refDept">
-          <option value="">Select department</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Referring Designation <span class="required">*</span></label>
-        <select id="refDesig">
-          <option value="">Select designation</option>
-        </select>
-      </div>
-    </div>
 
-    <div class="section-title" style="margin-top:22px;">Referral Details</div>
-    <div class="grid">
-      <div class="field">
-        <label>Upload CV (PDF / DOC)</label>
-        <input type="file" id="cvFile" accept=".pdf,.doc,.docx,.rtf,.txt" />
+      <!-- Section 2: Referral details (above department/designation) -->
+      <div class="section-title" style="margin-top:18px;">Referral details</div>
+      <div class="grid">
+        <div class="field">
+          <label>Upload CV (PDF / DOC)</label>
+          <input type="file" id="cvFile" accept=".pdf,.doc,.docx,.rtf,.txt" />
+        </div>
+        <div class="field" style="grid-column: 1 / -1;">
+          <label>Any remarks</label>
+          <textarea id="remarks" placeholder="Share anything helpful about the person you’re referring (optional)"></textarea>
+        </div>
       </div>
-      <div class="field" style="grid-column: 1 / -1;">
-        <label>Any Remarks</label>
-        <textarea id="remarks" placeholder="Optional notes about the referral"></textarea>
-      </div>
-    </div>
 
-    <div class="actions">
-      <div class="status" id="statusText"></div>
-      <button id="submitBtn">Submit Referral</button>
+      <!-- Section 3: Your position -->
+      <div class="section-title" style="margin-top:18px;">Your position</div>
+      <div class="grid">
+        <div class="field">
+          <label>Your Department <span class="required">*</span></label>
+          <select id="refDept">
+            <option value="">Select department</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Your Designation <span class="required">*</span></label>
+          <select id="refDesig">
+            <option value="">Select designation</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="actions">
+        <div class="status" id="statusText"></div>
+        <button id="submitBtn">Submit Referral</button>
+      </div>
     </div>
   </div>
 
   <script>
-    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxIiJkv_m0RA3NnrI6uSiJzoy0GLLA1CX5RLauOnoq2fqSwsIKu_UXEPydrnC3cd6DuYg/exec'; // <-- replace with your /exec URL
+    // 🔴 Your web app URL
+    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxIiJkv_m0RA3NnrI6uSiJzoy0GLLA1CX5RLauOnoq2fqSwsIKu_UXEPydrnC3cd6DuYg/exec';
 
     const outletSelect = document.getElementById('outletName');
     const deptSelect   = document.getElementById('refDept');
@@ -219,9 +291,31 @@
     const statusText   = document.getElementById('statusText');
     const submitBtn    = document.getElementById('submitBtn');
 
+    let deptDesigMap = {}; // dept -> [designations]
+
     function setStatus(msg, type) {
       statusText.textContent = msg || '';
       statusText.className = 'status' + (type ? ' ' + type : '');
+    }
+
+    function fillSelect(selectEl, items, placeholder) {
+      selectEl.innerHTML = '';
+      const opt0 = document.createElement('option');
+      opt0.value = '';
+      opt0.textContent = placeholder;
+      selectEl.appendChild(opt0);
+
+      (items || []).forEach(v => {
+        const opt = document.createElement('option');
+        opt.value = v;
+        opt.textContent = v;
+        selectEl.appendChild(opt);
+      });
+    }
+
+    function updateDesignationOptionsForDept(dept) {
+      const list = deptDesigMap[dept] || [];
+      fillSelect(desigSelect, list, 'Select designation');
     }
 
     async function loadConfig() {
@@ -231,26 +325,12 @@
         const data = await res.json();
         if (!data.success) throw new Error(data.error || 'Failed to load config');
 
-        const { outlets, departments, designations } = data.data || {};
-
-        function fillSelect(selectEl, items, placeholder) {
-          selectEl.innerHTML = '';
-          const opt0 = document.createElement('option');
-          opt0.value = '';
-          opt0.textContent = placeholder;
-          selectEl.appendChild(opt0);
-
-          (items || []).forEach(v => {
-            const opt = document.createElement('option');
-            opt.value = v;
-            opt.textContent = v;
-            selectEl.appendChild(opt);
-          });
-        }
+        const { outlets, departments, deptDesigMap: ddm } = data.data || {};
+        deptDesigMap = ddm || {};
 
         fillSelect(outletSelect, outlets, 'Select outlet');
         fillSelect(deptSelect, departments, 'Select department');
-        fillSelect(desigSelect, designations, 'Select designation');
+        fillSelect(desigSelect, [], 'Select designation');
 
         setStatus('', '');
       } catch (err) {
@@ -259,14 +339,18 @@
       }
     }
 
-    // Convert file to base64 (without prefix)
+    deptSelect.addEventListener('change', () => {
+      const dept = deptSelect.value.trim();
+      updateDesignationOptionsForDept(dept);
+      desigSelect.value = '';
+    });
+
     function fileToBase64(file) {
       return new Promise((resolve, reject) => {
         if (!file) return resolve(null);
         const reader = new FileReader();
         reader.onload = () => {
           const result = reader.result || '';
-          // result like: "data:application/pdf;base64,AAAA..."
           const parts = String(result).split(',');
           resolve(parts.length > 1 ? parts[1] : null);
         };
@@ -310,15 +394,16 @@
           cv: cvPayload
         };
 
+        // Use FormData → avoids CORS preflight issues
+        const formData = new FormData();
+        formData.append('payload', JSON.stringify({
+          action: 'submitReferral',
+          payload
+        }));
+
         const res = await fetch(WEB_APP_URL, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            action: 'submitReferral',
-            payload
-          })
+          body: formData
         });
 
         const data = await res.json();
@@ -326,12 +411,12 @@
 
         setStatus('Referral submitted successfully 🎉', 'success');
 
-        // Clear form (except dropdowns)
+        // Clear fields
         document.getElementById('employeeId').value = '';
         document.getElementById('employeeName').value = '';
         outletSelect.value = '';
         deptSelect.value = '';
-        desigSelect.value = '';
+        updateDesignationOptionsForDept('');
         document.getElementById('remarks').value = '';
         document.getElementById('cvFile').value = '';
 
@@ -349,7 +434,7 @@
       handleSubmit();
     });
 
-    // Load options at start
+    // Initial load
     loadConfig();
   </script>
 </body>
