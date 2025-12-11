@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Refer a Buddy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f7fb;
+      margin: 0;
+      padding: 0;
+      color: #222;
+    }
+    .page {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 12px;
+      padding: 24px 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+    h1 {
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 26px;
+      letter-spacing: 0.5px;
+    }
+    p.sub {
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 24px;
+      color: #666;
+      font-size: 14px;
+    }
+    .section-title {
+      font-weight: 600;
+      margin: 18px 0 8px;
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #444;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px 18px;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    label {
+      font-size: 13px;
+      font-weight: 500;
+      color: #444;
+    }
+    input[type="text"],
+    textarea,
+    select {
+      border-radius: 8px;
+      border: 1px solid #d0d7e2;
+      padding: 8px 10px;
+      font-size: 14px;
+      outline: none;
+      transition: border 0.15s, box-shadow 0.15s;
+    }
+    input[type="file"] {
+      font-size: 13px;
+    }
+    input[type="text"]:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #2b5dff;
+      box-shadow: 0 0 0 2px rgba(43,93,255,0.1);
+    }
+    textarea {
+      min-height: 70px;
+      resize: vertical;
+    }
+    .actions {
+      margin-top: 24px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    button {
+      border-radius: 999px;
+      border: none;
+      padding: 9px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      background: #2b5dff;
+      color: #fff;
+      box-shadow: 0 6px 16px rgba(43,93,255,0.35);
+      transition: transform 0.1s, box-shadow 0.1s, background 0.1s;
+    }
+    button:hover {
+      background: #2349cc;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(43,93,255,0.45);
+    }
+    button:disabled {
+      opacity: 0.6;
+      cursor: default;
+      transform: none;
+      box-shadow: none;
+    }
+    .status {
+      font-size: 13px;
+      color: #555;
+      min-height: 18px;
+    }
+    .status.error {
+      color: #c0392b;
+    }
+    .status.success {
+      color: #1e8449;
+    }
+    .required {
+      color: #c0392b;
+      margin-left: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>Employee Referral</h1>
+    <p class="sub">Submit your referral – HR will take it from here 😉</p>
+
+    <div class="section-title">Referring Employee</div>
+    <div class="grid">
+      <div class="field">
+        <label>Employee ID <span class="required">*</span></label>
+        <input type="text" id="employeeId" placeholder="E.g. BB123" />
+      </div>
+      <div class="field">
+        <label>Employee Name <span class="required">*</span></label>
+        <input type="text" id="employeeName" placeholder="Your full name" />
+      </div>
+      <div class="field">
+        <label>Outlet Name <span class="required">*</span></label>
+        <select id="outletName">
+          <option value="">Select outlet</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Referring Department <span class="required">*</span></label>
+        <select id="refDept">
+          <option value="">Select department</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Referring Designation <span class="required">*</span></label>
+        <select id="refDesig">
+          <option value="">Select designation</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top:22px;">Referral Details</div>
+    <div class="grid">
+      <div class="field">
+        <label>Upload CV (PDF / DOC)</label>
+        <input type="file" id="cvFile" accept=".pdf,.doc,.docx,.rtf,.txt" />
+      </div>
+      <div class="field" style="grid-column: 1 / -1;">
+        <label>Any Remarks</label>
+        <textarea id="remarks" placeholder="Optional notes about the referral"></textarea>
+      </div>
+    </div>
+
+    <div class="actions">
+      <div class="status" id="statusText"></div>
+      <button id="submitBtn">Submit Referral</button>
+    </div>
+  </div>
+
+  <script>
+    const WEB_APP_URL = 'YOUR_WEB_APP_URL_HERE'; // <-- replace with your /exec URL
+
+    const outletSelect = document.getElementById('outletName');
+    const deptSelect   = document.getElementById('refDept');
+    const desigSelect  = document.getElementById('refDesig');
+    const statusText   = document.getElementById('statusText');
+    const submitBtn    = document.getElementById('submitBtn');
+
+    function setStatus(msg, type) {
+      statusText.textContent = msg || '';
+      statusText.className = 'status' + (type ? ' ' + type : '');
+    }
+
+    async function loadConfig() {
+      try {
+        setStatus('Loading options...', '');
+        const res = await fetch(WEB_APP_URL + '?action=getConfig');
+        const data = await res.json();
+        if (!data.success) throw new Error(data.error || 'Failed to load config');
+
+        const { outlets, departments, designations } = data.data || {};
+
+        function fillSelect(selectEl, items, placeholder) {
+          selectEl.innerHTML = '';
+          const opt0 = document.createElement('option');
+          opt0.value = '';
+          opt0.textContent = placeholder;
+          selectEl.appendChild(opt0);
+
+          (items || []).forEach(v => {
+            const opt = document.createElement('option');
+            opt.value = v;
+            opt.textContent = v;
+            selectEl.appendChild(opt);
+          });
+        }
+
+        fillSelect(outletSelect, outlets, 'Select outlet');
+        fillSelect(deptSelect, departments, 'Select department');
+        fillSelect(desigSelect, designations, 'Select designation');
+
+        setStatus('', '');
+      } catch (err) {
+        console.error(err);
+        setStatus('Error loading options: ' + err.message, 'error');
+      }
+    }
+
+    // Convert file to base64 (without prefix)
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        if (!file) return resolve(null);
+        const reader = new FileReader();
+        reader.onload = () => {
+          const result = reader.result || '';
+          // result like: "data:application/pdf;base64,AAAA..."
+          const parts = String(result).split(',');
+          resolve(parts.length > 1 ? parts[1] : null);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function handleSubmit() {
+      try {
+        setStatus('', '');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
+
+        const employeeId   = document.getElementById('employeeId').value.trim();
+        const employeeName = document.getElementById('employeeName').value.trim();
+        const outletName   = outletSelect.value.trim();
+        const referringDept = deptSelect.value.trim();
+        const referringDesig = desigSelect.value.trim();
+        const remarks      = document.getElementById('remarks').value.trim();
+        const cvFile       = document.getElementById('cvFile').files[0] || null;
+
+        if (!employeeId || !employeeName || !outletName || !referringDept || !referringDesig) {
+          throw new Error('Please fill all required fields (*)');
+        }
+
+        const base64 = await fileToBase64(cvFile);
+        const cvPayload = base64 ? {
+          fileName: cvFile.name,
+          mimeType: cvFile.type || 'application/octet-stream',
+          base64: base64
+        } : null;
+
+        const payload = {
+          employeeId,
+          employeeName,
+          outletName,
+          referringDept,
+          referringDesignation: referringDesig,
+          remarks,
+          cv: cvPayload
+        };
+
+        const res = await fetch(WEB_APP_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            action: 'submitReferral',
+            payload
+          })
+        });
+
+        const data = await res.json();
+        if (!data.success) throw new Error(data.error || 'Failed to submit');
+
+        setStatus('Referral submitted successfully 🎉', 'success');
+
+        // Clear form (except dropdowns)
+        document.getElementById('employeeId').value = '';
+        document.getElementById('employeeName').value = '';
+        outletSelect.value = '';
+        deptSelect.value = '';
+        desigSelect.value = '';
+        document.getElementById('remarks').value = '';
+        document.getElementById('cvFile').value = '';
+
+      } catch (err) {
+        console.error(err);
+        setStatus(err.message || 'Something went wrong', 'error');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Referral';
+      }
+    }
+
+    submitBtn.addEventListener('click', evt => {
+      evt.preventDefault();
+      handleSubmit();
+    });
+
+    // Load options at start
+    loadConfig();
+  </script>
+</body>
+</html>
