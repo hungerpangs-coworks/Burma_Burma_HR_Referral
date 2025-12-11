@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Refer a Buddy</title>
+  <title>Burma Burma | Employee Referral</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Basic SEO -->
@@ -17,7 +17,7 @@
   <link rel="icon" type="image/png" href="BB_Logo_favicon.png" sizes="32x32">
   <link rel="apple-touch-icon" href="BB_Logo_favicon.png">
 
-  <!-- Open Graph / Twitter (optional but nice) -->
+  <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Burma Burma | Employee Referral" />
   <meta property="og:description"
@@ -120,6 +120,25 @@
       font-size: 0.85rem;
     }
 
+    .success-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #4ade80 0, #22c55e 45%, #16a34a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 18px 40px rgba(34, 197, 94, 0.4);
+      margin: 0 auto 1rem;
+    }
+
+    .success-icon svg {
+      width: 40px;
+      height: 40px;
+      stroke: #ffffff;
+      stroke-width: 2;
+    }
+
     @media (max-width: 576px) {
       .btn-group-flex {
         flex-direction: column;
@@ -136,7 +155,7 @@
       <div class="col-lg-9">
         <!-- Header -->
         <div class="text-center mb-4">
-          <img src="BB_Logo_favicon.png" alt="Burma Burma Logo" class="bb-logo mb-2" />
+          <img src="BB_Logo_Cropped.png" alt="Burma Burma Logo" class="bb-logo mb-2" />
           <div class="page-title">Refer a Buddy</div>
           <div class="page-subtitle">
             Refer great talent to the Burma Burma family in just a few clicks.
@@ -152,13 +171,15 @@
               <div id="alert" class="alert mb-0" role="alert"></div>
             </div>
 
-            <!-- FORM -->
+            <!-- FORM SECTION -->
             <div id="formSection">
               <!-- YOUR DETAILS -->
               <div class="section-heading">Your details</div>
               <div class="row g-3 mb-3">
                 <div class="col-md-6">
-                  <label for="employeeId" class="form-label">Employee ID <span class="text-danger">*</span></label>
+                  <label for="employeeId" class="form-label">
+                    Employee ID <span class="text-danger">*</span>
+                  </label>
                   <input
                     type="text"
                     id="employeeId"
@@ -167,7 +188,9 @@
                   />
                 </div>
                 <div class="col-md-6">
-                  <label for="employeeName" class="form-label">Employee Name <span class="text-danger">*</span></label>
+                  <label for="employeeName" class="form-label">
+                    Employee Name <span class="text-danger">*</span>
+                  </label>
                   <input
                     type="text"
                     id="employeeName"
@@ -176,31 +199,39 @@
                   />
                 </div>
                 <div class="col-md-6">
-                  <label for="outletName" class="form-label">Outlet Name <span class="text-danger">*</span></label>
+                  <label for="outletName" class="form-label">
+                    Outlet Name <span class="text-danger">*</span>
+                  </label>
                   <select id="outletName" class="form-select">
                     <option value="">Select outlet</option>
                   </select>
                 </div>
               </div>
 
-              <!-- REFERRAL DETAILS (candidate side) -->
+              <!-- REFERRAL DETAILS -->
               <div class="section-heading mt-3">Referral details</div>
               <div class="row g-3 mb-3">
                 <div class="col-md-6">
-                  <label for="refDept" class="form-label">Referred in Department <span class="text-danger">*</span></label>
+                  <label for="refDept" class="form-label">
+                    Referred in Department <span class="text-danger">*</span>
+                  </label>
                   <select id="refDept" class="form-select">
                     <option value="">Select department</option>
                   </select>
                 </div>
                 <div class="col-md-6">
-                  <label for="refDesig" class="form-label">Referred for Designation <span class="text-danger">*</span></label>
+                  <label for="refDesig" class="form-label">
+                    Referred for Designation <span class="text-danger">*</span>
+                  </label>
                   <select id="refDesig" class="form-select">
                     <option value="">Select designation</option>
                   </select>
                 </div>
 
                 <div class="col-md-6">
-                  <label for="cvFile" class="form-label">Upload CV <span class="text-danger">*</span></label>
+                  <label for="cvFile" class="form-label">
+                    Upload CV <span class="text-danger">*</span>
+                  </label>
                   <input
                     type="file"
                     id="cvFile"
@@ -230,11 +261,17 @@
               </div>
             </div>
 
-            <!-- THANK YOU SECTION (optional – currently unused) -->
+            <!-- THANK YOU SECTION -->
             <div id="thankYouSection" class="text-center" style="display:none;">
-              <h4 class="mb-1">Thank you!</h4>
+              <div class="success-icon">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="10" stroke="white" stroke-width="1.5"></circle>
+                  <path d="M7 13l3 3 7-7" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </div>
+              <h4 class="mb-1">Thank you for your referral!</h4>
               <p class="text-muted mb-3">
-                Your referral has been submitted to HR.
+                We’ve received the candidate details. HR will review the profile and get in touch if there’s a fit.
               </p>
               <button type="button" class="btn btn-gradient mt-2" id="btnNewReferral">
                 Submit another referral
@@ -261,11 +298,12 @@
     const desigSelect  = document.getElementById('refDesig');
     const statusText   = document.getElementById('statusText');
     const submitBtn    = document.getElementById('submitBtn');
-    const alertContainer = document.getElementById('alert-container');
-    const alertBox       = document.getElementById('alert');
-    const formSection    = document.getElementById('formSection');
+
+    const alertContainer  = document.getElementById('alert-container');
+    const alertBox        = document.getElementById('alert');
+    const formSection     = document.getElementById('formSection');
     const thankYouSection = document.getElementById('thankYouSection');
-    const btnNewReferral = document.getElementById('btnNewReferral');
+    const btnNewReferral  = document.getElementById('btnNewReferral');
 
     let deptDesigMap = {}; // dept -> [designations]
 
@@ -282,8 +320,11 @@
 
     function setStatus(msg, type) {
       statusText.textContent = msg || '';
-      if (!msg) return;
       statusText.classList.remove('text-success', 'text-danger', 'text-muted');
+      if (!msg) {
+        statusText.classList.add('text-muted');
+        return;
+      }
       if (type === 'success') statusText.classList.add('text-success');
       else if (type === 'error') statusText.classList.add('text-danger');
       else statusText.classList.add('text-muted');
@@ -372,7 +413,7 @@
           throw new Error('Please fill all required fields (*)');
         }
         if (!cvFile) {
-          throw new Error('Please upload the candidate\'s CV.');
+          throw new Error("Please upload the candidate's CV.");
         }
 
         const base64 = await fileToBase64(cvFile);
@@ -386,7 +427,7 @@
           employeeId,
           employeeName,
           outletName,
-          referringDept,               // stored as Referring Dept in sheet (candidate dept)
+          referringDept,
           referringDesignation: referringDesig,
           remarks,
           cv: cvPayload
@@ -406,9 +447,7 @@
         const data = await res.json();
         if (!data.success) throw new Error(data.error || 'Failed to submit');
 
-        setStatus('Referral submitted successfully 🎉', 'success');
-
-        // Clear form
+        // Clear form fields
         document.getElementById('employeeId').value = '';
         document.getElementById('employeeName').value = '';
         outletSelect.value = '';
@@ -417,9 +456,11 @@
         document.getElementById('remarks').value = '';
         document.getElementById('cvFile').value = '';
 
-        // (Optional) show thank you screen instead of just clearing
-        // formSection.style.display = 'none';
-        // thankYouSection.style.display = 'block';
+        setStatus('', 'success');
+
+        // Show Thank You page
+        formSection.style.display = 'none';
+        thankYouSection.style.display = 'block';
 
       } catch (err) {
         console.error(err);
@@ -436,14 +477,13 @@
       handleSubmit();
     });
 
-    if (btnNewReferral) {
-      btnNewReferral.addEventListener('click', () => {
-        thankYouSection.style.display = 'none';
-        formSection.style.display = 'block';
-        clearAlert();
-        setStatus('', '');
-      });
-    }
+    btnNewReferral.addEventListener('click', () => {
+      // Bring the form back for another entry
+      thankYouSection.style.display = 'none';
+      formSection.style.display = 'block';
+      clearAlert();
+      setStatus('', '');
+    });
 
     // Initial load
     loadConfig();
