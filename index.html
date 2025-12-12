@@ -107,13 +107,20 @@
       transform: translateY(-1px);
     }
 
+    /* ✅ Heading color now matches title blue */
     .section-heading {
-      font-weight: 600;
-      font-size: 0.9rem;
+      font-weight: 700;
+      font-size: 0.92rem;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      color: #6b7280;
-      margin-bottom: 4px;
+      color: #1d4ed8; /* same family as title */
+      margin-bottom: 6px;
+    }
+
+    /* ✅ divider after Your details */
+    .section-divider {
+      border-top: 1px solid #e5e7eb;
+      margin: 18px 0 10px;
     }
 
     .status-text {
@@ -149,6 +156,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="container py-4 py-md-5">
     <div class="row justify-content-center">
@@ -158,7 +166,7 @@
           <img src="BB_Logo_favicon.png" alt="Burma Burma Logo" class="bb-logo mb-2" />
           <div class="page-title">Refer a Buddy</div>
           <div class="page-subtitle">
-            Refer great talent to the Burma Burma family in just a few clicks.
+            Refer great talent to Hunger Pangs Pvt Ltd. in just a few clicks.
           </div>
         </div>
 
@@ -173,9 +181,10 @@
 
             <!-- FORM SECTION -->
             <div id="formSection">
+
               <!-- YOUR DETAILS -->
               <div class="section-heading">Your details</div>
-              <div class="row g-3 mb-3">
+              <div class="row g-3 mb-2">
                 <div class="col-md-6">
                   <label for="employeeId" class="form-label">
                     Employee ID <span class="text-danger">*</span>
@@ -187,6 +196,7 @@
                     placeholder="Enter your employee ID"
                   />
                 </div>
+
                 <div class="col-md-6">
                   <label for="employeeName" class="form-label">
                     Employee Name <span class="text-danger">*</span>
@@ -198,6 +208,7 @@
                     placeholder="Enter your full name"
                   />
                 </div>
+
                 <div class="col-md-6">
                   <label for="outletName" class="form-label">
                     Outlet Name <span class="text-danger">*</span>
@@ -208,8 +219,11 @@
                 </div>
               </div>
 
+              <!-- ✅ Divider line requested -->
+              <div class="section-divider"></div>
+
               <!-- REFERRAL DETAILS -->
-              <div class="section-heading mt-3">Referral details</div>
+              <div class="section-heading mt-2">Referral details</div>
               <div class="row g-3 mb-3">
                 <div class="col-md-6">
                   <label for="refDept" class="form-label">
@@ -219,6 +233,7 @@
                     <option value="">Select department</option>
                   </select>
                 </div>
+
                 <div class="col-md-6">
                   <label for="refDesig" class="form-label">
                     Referred for Designation <span class="text-danger">*</span>
@@ -228,6 +243,33 @@
                   </select>
                 </div>
 
+                <!-- ✅ NEW: Candidate Name -->
+                <div class="col-md-6">
+                  <label for="candidateName" class="form-label">
+                    Referred Candidate Name <span class="text-danger">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="candidateName"
+                    class="form-control"
+                    placeholder="Enter candidate name"
+                  />
+                </div>
+
+                <!-- ✅ NEW: Location Referred For -->
+                <div class="col-md-6">
+                  <label for="locationReferredFor" class="form-label">
+                    Location Referred for <span class="text-danger">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="locationReferredFor"
+                    class="form-control"
+                    placeholder="E.g. Kolkata Park Street"
+                  />
+                </div>
+
+                <!-- Upload CV now comes after the two new questions -->
                 <div class="col-md-6">
                   <label for="cvFile" class="form-label">
                     Upload CV <span class="text-danger">*</span>
@@ -394,11 +436,16 @@
         const employeeId   = document.getElementById('employeeId').value.trim();
         const employeeName = document.getElementById('employeeName').value.trim();
         const outletName   = outletSelect.value.trim();
-        const referringDept = deptSelect.value.trim();      // candidate dept
-        const referringDesig = desigSelect.value.trim();    // candidate role
-        const cvFile       = document.getElementById('cvFile').files[0] || null;
 
-        if (!employeeId || !employeeName || !outletName || !referringDept || !referringDesig) {
+        const referringDept  = deptSelect.value.trim();      // candidate dept
+        const referringDesig = desigSelect.value.trim();     // candidate role
+
+        const candidateName = document.getElementById('candidateName').value.trim();
+        const locationReferredFor = document.getElementById('locationReferredFor').value.trim();
+
+        const cvFile = document.getElementById('cvFile').files[0] || null;
+
+        if (!employeeId || !employeeName || !outletName || !referringDept || !referringDesig || !candidateName || !locationReferredFor) {
           throw new Error('Please fill all required fields (*)');
         }
         if (!cvFile) {
@@ -412,12 +459,15 @@
           base64: base64
         };
 
+        // ✅ payload now includes candidateName + locationReferredFor
         const payload = {
           employeeId,
           employeeName,
           outletName,
           referringDept,
           referringDesignation: referringDesig,
+          candidateName,
+          locationReferredFor,
           cv: cvPayload
         };
 
@@ -441,6 +491,8 @@
         outletSelect.value = '';
         deptSelect.value = '';
         updateDesignationOptionsForDept('');
+        document.getElementById('candidateName').value = '';
+        document.getElementById('locationReferredFor').value = '';
         document.getElementById('cvFile').value = '';
 
         setStatus('', 'success');
@@ -465,7 +517,6 @@
     });
 
     btnNewReferral.addEventListener('click', () => {
-      // Bring the form back for another entry
       thankYouSection.style.display = 'none';
       formSection.style.display = 'block';
       clearAlert();
