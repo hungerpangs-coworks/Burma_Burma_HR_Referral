@@ -20,59 +20,16 @@
       background: radial-gradient(circle at top, #ffffff 0, #f3f6fb 45%, #e5edf7 100%);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
-    .bb-logo {
-      width: 120px;
-      filter: drop-shadow(0 4px 10px rgba(15, 23, 42, 0.3));
-    }
-    .page-title {
-      font-weight: 800;
-      font-size: 2.25rem;
-      color: #1d4ed8;
-    }
-    .page-subtitle {
-      color: #6b7280;
-      font-size: 0.95rem;
-    }
-    .card-referral {
-      border-radius: 18px;
-      border: 1px solid #e5e7eb;
-      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
-    }
-    .section-heading {
-      font-weight: 700;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: #1d4ed8;
-      margin-bottom: 6px;
-    }
-    .section-divider {
-      border-top: 1px solid #e5e7eb;
-      margin: 18px 0 10px;
-    }
-    .form-control, .form-select {
-      border-radius: 0.75rem;
-      background-color: #f9fafb;
-    }
-    .btn-gradient {
-      background: linear-gradient(to right, #1d9bf0, #34d399);
-      border: none;
-      color: #fff;
-      font-weight: 600;
-      border-radius: 999px;
-      padding: 0.7rem 1.6rem;
-      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.3);
-    }
-    .success-icon {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #4ade80, #16a34a);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1rem;
-    }
+    .bb-logo { width: 120px; filter: drop-shadow(0 4px 10px rgba(15, 23, 42, 0.3)); }
+    .page-title { font-weight: 800; font-size: 2.25rem; color: #1d4ed8; }
+    .page-subtitle { color: #6b7280; font-size: 0.95rem; }
+    .card-referral { border-radius: 18px; border: 1px solid #e5e7eb; box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08); }
+    .section-heading { font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.12em; color: #1d4ed8; margin-bottom: 6px; }
+    .section-divider { border-top: 1px solid #e5e7eb; margin: 18px 0 10px; }
+    .form-control, .form-select { border-radius: 0.75rem; background-color: #f9fafb; }
+    .btn-gradient { background: linear-gradient(to right, #1d9bf0, #34d399); border: none; color: #fff; font-weight: 600; border-radius: 999px; padding: 0.7rem 1.6rem; box-shadow: 0 12px 30px rgba(37, 99, 235, 0.3); }
+    .success-icon { width: 72px; height: 72px; border-radius: 50%; background: radial-gradient(circle, #4ade80, #16a34a); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-weight: 800; color: #fff; }
+    .status { font-size: 0.9rem; min-height: 22px; }
   </style>
 </head>
 
@@ -81,7 +38,6 @@
   <div class="row justify-content-center">
     <div class="col-lg-9">
 
-      <!-- Header -->
       <div class="text-center mb-4">
         <img src="BB_Logo_favicon.png" class="bb-logo mb-2" />
         <div class="page-title">Refer a Buddy</div>
@@ -91,76 +47,78 @@
       <div class="card card-referral">
         <div class="card-body p-4 p-md-5">
 
-          <div id="formSection">
+          <!-- ALERT -->
+          <div id="alertBox" class="alert alert-danger" style="display:none;"></div>
 
-            <!-- YOUR DETAILS -->
+          <div id="formSection">
             <div class="section-heading">Your Details</div>
             <div class="row g-3">
               <div class="col-md-6">
                 <label class="form-label">Employee ID *</label>
-                <input id="employeeId" class="form-control" />
+                <input id="employeeId" class="form-control" placeholder="Enter your employee ID"/>
               </div>
               <div class="col-md-6">
                 <label class="form-label">Employee Name *</label>
-                <input id="employeeName" class="form-control" />
+                <input id="employeeName" class="form-control" placeholder="Enter your full name"/>
               </div>
               <div class="col-md-6">
                 <label class="form-label">Outlet Name *</label>
                 <select id="outletName" class="form-select">
-                  <option value="">Select outlet</option>
+                  <option value="">Loading...</option>
                 </select>
               </div>
             </div>
 
             <div class="section-divider"></div>
 
-            <!-- REFERRAL DETAILS -->
             <div class="section-heading mt-2">Referral Details</div>
             <div class="row g-3">
 
               <div class="col-md-6">
                 <label class="form-label">Referred in Department *</label>
-                <select id="refDept" class="form-select"></select>
+                <select id="refDept" class="form-select">
+                  <option value="">Loading...</option>
+                </select>
               </div>
 
               <div class="col-md-6">
                 <label class="form-label">Referred for Designation *</label>
-                <select id="refDesig" class="form-select"></select>
+                <select id="refDesig" class="form-select">
+                  <option value="">Select department first</option>
+                </select>
               </div>
 
               <div class="col-md-6">
                 <label class="form-label">Referred Candidate Name *</label>
-                <input id="candidateName" class="form-control" />
+                <input id="candidateName" class="form-control" placeholder="Candidate full name"/>
               </div>
 
-              <!-- ✅ SAME DROPDOWN AS OUTLET -->
               <div class="col-md-6">
                 <label class="form-label">Location Referred for *</label>
                 <select id="locationReferredFor" class="form-select">
-                  <option value="">Select location</option>
+                  <option value="">Loading...</option>
                 </select>
               </div>
 
               <div class="col-md-6">
                 <label class="form-label">Upload CV *</label>
-                <input type="file" id="cvFile" class="form-control" />
+                <input type="file" id="cvFile" class="form-control" accept=".pdf,.doc,.docx"/>
+                <small class="text-muted">Only PDF/DOC/DOCX recommended.</small>
               </div>
 
             </div>
 
-            <div class="d-flex justify-content-end mt-4">
-              <button id="submitBtn" class="btn btn-gradient">Submit Referral</button>
+            <div class="d-flex justify-content-between align-items-center mt-4">
+              <div id="statusText" class="status text-muted"></div>
+              <button id="submitBtn" class="btn btn-gradient" type="button">Submit Referral</button>
             </div>
-
           </div>
 
-          <!-- THANK YOU -->
           <div id="thankYouSection" class="text-center" style="display:none;">
             <div class="success-icon">✔</div>
             <h4>Thank you for your referral!</h4>
-            <button id="btnNewReferral" class="btn btn-gradient mt-3">
-              Submit another referral
-            </button>
+            <p class="text-muted">HR has received the referral details.</p>
+            <button id="btnNewReferral" class="btn btn-gradient mt-3" type="button">Submit another referral</button>
           </div>
 
         </div>
@@ -171,42 +129,179 @@
 </div>
 
 <script>
-const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxIiJkv_m0RA3NnrI6uSiJzoy0GLLA1CX5RLauOnoq2fqSwsIKu_UXEPydrnC3cd6DuYg/exec';
+  const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxIiJkv_m0RA3NnrI6uSiJzoy0GLLA1CX5RLauOnoq2fqSwsIKu_UXEPydrnC3cd6DuYg/exec';
 
-const outletSelect = document.getElementById('outletName');
-const locationReferredSelect = document.getElementById('locationReferredFor');
-const deptSelect = document.getElementById('refDept');
-const desigSelect = document.getElementById('refDesig');
+  const outletSelect = document.getElementById('outletName');
+  const locationReferredSelect = document.getElementById('locationReferredFor');
+  const deptSelect = document.getElementById('refDept');
+  const desigSelect = document.getElementById('refDesig');
 
-let deptDesigMap = {};
+  const submitBtn = document.getElementById('submitBtn');
+  const statusText = document.getElementById('statusText');
+  const alertBox = document.getElementById('alertBox');
 
-function fillSelect(select, list, placeholder) {
-  select.innerHTML = `<option value="">${placeholder}</option>`;
-  list.forEach(v => {
-    const o = document.createElement('option');
-    o.value = v;
-    o.textContent = v;
-    select.appendChild(o);
+  const formSection = document.getElementById('formSection');
+  const thankYouSection = document.getElementById('thankYouSection');
+  const btnNewReferral = document.getElementById('btnNewReferral');
+
+  let deptDesigMap = {};
+
+  function showAlert(msg) {
+    alertBox.textContent = msg;
+    alertBox.style.display = 'block';
+  }
+  function clearAlert() {
+    alertBox.textContent = '';
+    alertBox.style.display = 'none';
+  }
+  function setStatus(msg) {
+    statusText.textContent = msg || '';
+  }
+
+  function fillSelect(select, list, placeholder) {
+    select.innerHTML = `<option value="">${placeholder}</option>`;
+    (list || []).forEach(v => {
+      const o = document.createElement('option');
+      o.value = v;
+      o.textContent = v;
+      select.appendChild(o);
+    });
+  }
+
+  async function loadConfig() {
+    try {
+      setStatus('Loading options...');
+      const res = await fetch(WEB_APP_URL + '?action=getConfig');
+      const json = await res.json();
+      if (!json.success) throw new Error(json.error || 'Failed to load config');
+
+      const { outlets, departments, deptDesigMap: map } = json.data || {};
+      deptDesigMap = map || {};
+
+      fillSelect(outletSelect, outlets, 'Select outlet');
+      fillSelect(locationReferredSelect, outlets, 'Select location');
+      fillSelect(deptSelect, departments, 'Select department');
+      fillSelect(desigSelect, [], 'Select designation');
+
+      setStatus('');
+    } catch (e) {
+      console.error(e);
+      showAlert('Config load failed: ' + (e.message || e));
+      setStatus('');
+    }
+  }
+
+  deptSelect.addEventListener('change', () => {
+    const dept = deptSelect.value;
+    fillSelect(desigSelect, deptDesigMap[dept] || [], 'Select designation');
   });
-}
 
-async function loadConfig() {
-  const res = await fetch(WEB_APP_URL + '?action=getConfig');
-  const json = await res.json();
-  const { outlets, departments, deptDesigMap: map } = json.data;
+  function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const parts = String(reader.result || '').split(',');
+        resolve(parts[1] || null); // base64 part only
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
 
-  deptDesigMap = map;
+  async function handleSubmit() {
+    try {
+      clearAlert();
+      setStatus('');
 
-  fillSelect(outletSelect, outlets, 'Select outlet');
-  fillSelect(locationReferredSelect, outlets, 'Select location');
-  fillSelect(deptSelect, departments, 'Select department');
-}
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
 
-deptSelect.addEventListener('change', () => {
-  fillSelect(desigSelect, deptDesigMap[deptSelect.value] || [], 'Select designation');
-});
+      const employeeId = document.getElementById('employeeId').value.trim();
+      const employeeName = document.getElementById('employeeName').value.trim();
+      const outletName = outletSelect.value.trim();
 
-loadConfig();
+      const referringDept = deptSelect.value.trim();
+      const referringDesignation = desigSelect.value.trim();
+
+      const candidateName = document.getElementById('candidateName').value.trim();
+      const locationReferredFor = locationReferredSelect.value.trim();
+
+      const cvFile = document.getElementById('cvFile').files[0] || null;
+
+      if (!employeeId || !employeeName || !outletName || !referringDept || !referringDesignation || !candidateName || !locationReferredFor) {
+        throw new Error('Please fill all required fields (*)');
+      }
+      if (!cvFile) throw new Error('Please upload CV (PDF/DOC/DOCX).');
+
+      // Convert CV to base64
+      setStatus('Preparing CV...');
+      const base64 = await fileToBase64(cvFile);
+
+      const payload = {
+        employeeId,
+        employeeName,
+        outletName,
+        referringDept,
+        referringDesignation,
+        candidateName,
+        locationReferredFor,
+        cv: {
+          fileName: cvFile.name,
+          mimeType: cvFile.type || 'application/octet-stream',
+          base64
+        }
+      };
+
+      // IMPORTANT: FormData payload to avoid CORS preflight
+      const formData = new FormData();
+      formData.append('payload', JSON.stringify({
+        action: 'submitReferral',
+        payload
+      }));
+
+      setStatus('Submitting...');
+      const res = await fetch(WEB_APP_URL, { method: 'POST', body: formData });
+      const json = await res.json();
+
+      if (!json.success) throw new Error(json.error || 'Submission failed');
+
+      // Clear
+      document.getElementById('employeeId').value = '';
+      document.getElementById('employeeName').value = '';
+      outletSelect.value = '';
+      deptSelect.value = '';
+      fillSelect(desigSelect, [], 'Select designation');
+      document.getElementById('candidateName').value = '';
+      locationReferredSelect.value = '';
+      document.getElementById('cvFile').value = '';
+
+      // Thank you
+      formSection.style.display = 'none';
+      thankYouSection.style.display = 'block';
+
+    } catch (e) {
+      console.error(e);
+      showAlert(e.message || 'Failed to submit');
+      setStatus('');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit Referral';
+    }
+  }
+
+  submitBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    handleSubmit();
+  });
+
+  btnNewReferral.addEventListener('click', () => {
+    thankYouSection.style.display = 'none';
+    formSection.style.display = 'block';
+    clearAlert();
+    setStatus('');
+  });
+
+  loadConfig();
 </script>
 </body>
 </html>
